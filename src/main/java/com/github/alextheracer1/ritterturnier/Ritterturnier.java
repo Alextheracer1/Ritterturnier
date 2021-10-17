@@ -13,8 +13,8 @@ import java.io.InputStream;
 public class Ritterturnier extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Ritterturnier.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        FXMLLoader fxmlLoader = new FXMLLoader(Ritterturnier.class.getResource("main-file.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         stage.setTitle("Ritterturnier");
         InputStream stream = Ritterturnier.class.getResourceAsStream("icon.jpg");
         if (stream != null) {
