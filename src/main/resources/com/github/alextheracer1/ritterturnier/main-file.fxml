@@ -5,10 +5,10 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
@@ -30,7 +30,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About Ritterturnier" />
+            <MenuItem fx:id="helpButton" mnemonicParsing="false" text="About Ritterturnier" />
           </items>
         </Menu>
       </menus>
@@ -39,7 +39,7 @@
       <items>
         <AnchorPane>
           <children>
-            <Label alignment="CENTER" layoutX="33.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Add Character/Item" textAlignment="CENTER" wrapText="false">
+            <Label alignment="CENTER" layoutX="27.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Charakter hinzufügen" textAlignment="CENTER" wrapText="false">
               <font>
                 <Font size="18.0" fx:id="x1" />
               </font>
@@ -47,23 +47,45 @@
                 <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
               </textFill>
             </Label>
-                  <ChoiceBox fx:id="choiceBox" layoutX="36.0" layoutY="83.0" prefWidth="150.0" />
-                  <CheckBox layoutX="46.0" layoutY="357.0" mnemonicParsing="false" text="CheckBox" />
-                  <RadioButton layoutX="52.0" layoutY="302.0" mnemonicParsing="false" text="RadioButton" />
-                  <RadioButton layoutX="52.0" layoutY="327.0" mnemonicParsing="false" text="RadioButton" />
-                  <Button fx:id="addItem" layoutX="93.0" layoutY="409.0" mnemonicParsing="false" onAction="#prozessSelection" text="Add" />
-                  <TextField fx:id="nameTextField" disable="true" layoutX="37.0" layoutY="146.0" promptText="Name" />
-                  <TextField fx:id="mobileNumberTextField" disable="true" layoutX="37.0" layoutY="171.0" promptText="Telefonnummer" />
-                  <TextField fx:id="reputationTextField" disable="true" layoutX="37.0" layoutY="196.0" promptText="Rufname" />
-                  <TextField fx:id="levelOfTrainingTextField" disable="true" layoutX="37.0" layoutY="196.0" promptText="Level of Training" />
-                  <ChoiceBox fx:id="weaponChoiceBox" layoutX="36.0" layoutY="232.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="characterChoiceBox" layoutX="36.0" layoutY="83.0" prefWidth="150.0" />
+                  <CheckBox fx:id="checkBox" layoutX="44.0" layoutY="351.0" mnemonicParsing="false" onAction="#enableRitterKnappeInput" text="Ritter einen Knappen?" />
+                  <Button fx:id="addItem" layoutX="92.0" layoutY="465.0" mnemonicParsing="false" onAction="#processSelection" text="Add" />
+                  <TextField fx:id="nameTextField" disable="true" layoutX="37.0" layoutY="125.0" promptText="Name" />
+                  <TextField fx:id="mobileNumberTextField" disable="true" layoutX="37.0" layoutY="150.0" promptText="Telefonnummer" />
+                  <TextField fx:id="reputationTextField" disable="true" layoutX="37.0" layoutY="175.0" promptText="Rufname" />
+                  <TextField fx:id="levelOfTrainingTextField" disable="true" layoutX="37.0" layoutY="175.0" promptText="Level of Training" />
+                  <TextField fx:id="idTextFieldRitterKnappe" disable="true" layoutX="37.0" layoutY="385.0" promptText="ID of Knappe" />
+                  <ChoiceBox fx:id="weaponChoiceBox" layoutX="36.0" layoutY="225.0" prefWidth="150.0" />
+                  <Label layoutX="37.0" layoutY="66.0" text="Charakter" />
+                  <Label fx:id="weaponLabel" layoutX="36.0" layoutY="208.0" text="Waffen Kategorie" />
+                  <ChoiceBox fx:id="weaponSubCategoryChoiceBox" layoutX="38.0" layoutY="289.0" prefWidth="150.0" />
+                  <Label fx:id="weaponSubCategoryLabel" layoutX="38.0" layoutY="267.0" text="Waffen Unterkategorie" />
           </children>
         </AnchorPane>
         <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="664.0">
               <children>
-                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Selection" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                <Label alignment="CENTER" font="$x1" layoutX="116.0" layoutY="14.0" style="&#10;" text="Ritter" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                        <ListView fx:id="listViewRitter" layoutX="51.0" layoutY="48.0" prefHeight="468.0" prefWidth="173.0" />
+                        <ListView fx:id="listViewKnappe" layoutX="246.0" layoutY="48.0" prefHeight="468.0" prefWidth="173.0" />
+                        <ListView fx:id="listViewRitterWithKnappe" layoutX="443.0" layoutY="48.0" prefHeight="468.0" prefWidth="173.0" />
+                        <Label alignment="CENTER" layoutX="297.0" layoutY="14.0" style="&#10;" text="Knappen" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x11" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
+                           </textFill>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="460.0" layoutY="14.0" style="&#10;" text="Ritter mit Knappe" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x12" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x22" />
+                           </textFill>
+                        </Label>
               </children>
             </AnchorPane>
           </content>
