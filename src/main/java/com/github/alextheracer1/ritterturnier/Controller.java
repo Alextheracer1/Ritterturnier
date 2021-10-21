@@ -270,8 +270,8 @@ public class Controller implements Initializable {
         if (Objects.equals(selected, "Ritter")){
             try{
                 for (int i = 1; i <= memberList.getHashSizeRitter(); i++) {
-                    if (Objects.equals(memberList.getRitter(i).getName().toLowerCase(Locale.ROOT), name.toLowerCase(Locale.ROOT))) {
-                        if (Objects.equals((memberList.getRitter(i).getReputationName().toLowerCase(Locale.ROOT)), reputation.toLowerCase(Locale.ROOT))){
+                    if (Objects.equals(memberList.getRitter(i).getName().toLowerCase(Locale.ROOT).strip(), name.toLowerCase(Locale.ROOT).strip())) {
+                        if (Objects.equals((memberList.getRitter(i).getReputationName().toLowerCase(Locale.ROOT).strip()), reputation.toLowerCase(Locale.ROOT).strip())){
                             throw new DoubleNameAndReputationException("Double Name and Reputation");
                         }
                     }
@@ -294,10 +294,10 @@ public class Controller implements Initializable {
             if (checkBox.isSelected()) {
                 try {
                     Ritter ritter = new Ritter(name, mobileNumber, reputation, ritterID);
-                    memberList.setRitter(ritter, ritterID);
                     ritter.setWeapon(selectedWeapon);
                     addKnappeToRitter(ritter);
                     listViewRitterWithKnappe.getItems().add("Ritter" + ritter.toString() + "\n\nKnappe with Ritter" + ritter.getKnappeToString());
+                    memberList.setRitter(ritter, ritterID);
                     clearTextFields();
                     ritterID++;
                 } catch (NullPointerException ignored) {
