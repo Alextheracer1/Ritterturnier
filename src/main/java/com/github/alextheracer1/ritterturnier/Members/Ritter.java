@@ -22,6 +22,10 @@ public class Ritter {
         this.knappe = knappe;
     }
 
+    public Knappe getKnappe(){
+         return knappe;
+    }
+
     public String getKnappeName(){
          return knappe.getName();
     }

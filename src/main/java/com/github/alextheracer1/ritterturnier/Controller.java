@@ -134,19 +134,13 @@ public class Controller implements Initializable {
 
         if (!disable) {
             if (id.equals("")) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Input Error");
-                alert.setContentText("Please enter only Numbers");
-                alert.showAndWait();
+                new WrongInputsAlert("Keine Eingabe", "Es wurde keine ID für den Knappen eingegeben");
                 return;
             } else {
                 if (memberList.getKnappe(Integer.parseInt(id)) != null) {
                     ritter.setKnappe(memberList.getKnappe(Integer.parseInt(id)));
                 } else {
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("No Knappe");
-                    alert.setContentText("There is no Knappe with the id " + id + "\nPlease check your input or create a Knappe before adding it");
-                    alert.showAndWait();
+                    new WrongInputsAlert("Kein Knappe", "Es existiert kein Knappe mir der ID " + id + "\nÜberprüfe deine Eingabe oder füge einen Knappen hinzu.");
                     return;
                 }
 
@@ -214,35 +208,22 @@ public class Controller implements Initializable {
         int levelOfTraining = 0;
 
         if (Objects.equals(selected, null)) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setContentText("No Character selected");
-            alert.setTitle("Input Error");
-            alert.showAndWait();
-            return;
+            new WrongInputsAlert("Eingabe Fehler", "Kein Charakter ausgewählt");
         }
 
         if (Objects.equals(name, "")) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setContentText("No Name entered");
-            alert.setTitle("Input Error");
-            alert.showAndWait();
+            new WrongInputsAlert("Eingabe Fehler", "Es wurde kein Name eingegeben");
             return;
         }
 
         if (Objects.equals(mobileNumber, "")) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setContentText("No Mobile Number entered");
-            alert.setTitle("Input Error");
-            alert.showAndWait();
+            new WrongInputsAlert("Eingabe Fehler", "Es wurde keine Telefonnummer eingegeben");
             return;
         }
 
         if (Objects.equals(selected, "Ritter")) {
             if (Objects.equals(reputation, "")) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setContentText("No Reputation entered");
-                alert.setTitle("Input Error");
-                alert.showAndWait();
+                new WrongInputsAlert("Eingabe Fehler", "Es wurde kein Rufname eingegeben");
                 return;
             }
         } else if (Objects.equals(selected, "Knappe")) {
@@ -252,10 +233,7 @@ public class Controller implements Initializable {
                     throw new NumberFormatException();
                 }
             } catch (NumberFormatException e) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setContentText("Level of Training has to be a valid number and may only go from 10 to 100");
-                alert.setTitle("Input Error");
-                alert.showAndWait();
+                new WrongInputsAlert("Eingabe Fehler", "Trainingslevel muss eine valide Zahl zwischen 10 und 100 sein");
                 return;
             }
         }
@@ -270,31 +248,28 @@ public class Controller implements Initializable {
             System.out.println("Name: " + name + "\nselected type: " + selected + "\nMobile Number: " + mobileNumber + "\nLevel of Training: " + levelOfTraining);
         }
 */
-        if (Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Lanze") || Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Schwert")
-                || Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Keule")) {
-            if (Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Lanze")) {
-                lanze = new Lanze("Lanze");
-                weapon = lanze;
-            } else if (Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Schwert")) {
-                schwert = new Schwert("Schwert");
-                weapon = schwert;
-            } else if (Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Keule")) {
-                keule = new Keule("Keule");
-                weapon = keule;
+        if (Objects.equals(selected, "Ritter")) {
+            if (Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Lanze") || Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Schwert")
+                    || Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Keule")) {
+                if (Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Lanze")) {
+                    lanze = new Lanze("Lanze");
+                    weapon = lanze;
+                } else if (Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Schwert")) {
+                    schwert = new Schwert("Schwert");
+                    weapon = schwert;
+                } else if (Objects.equals(weaponChoiceBox.getSelectionModel().getSelectedItem(), "Keule")) {
+                    keule = new Keule("Keule");
+                    weapon = keule;
+                }
+            } else {
+                new WrongInputsAlert("Eingabe Fehler", "Es wurde keine Waffe ausgewählt");
+                return;
             }
-        } else {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Weapon Error");
-            alert.setContentText("No Weapon has been selected");
-            alert.showAndWait();
-            return;
         }
-        makeSelection(selected, name, mobileNumber, levelOfTraining, reputation, weapon);
+            makeSelection(selected, name, mobileNumber, levelOfTraining, reputation, weapon);
 
+        }
 
-        clearTextFields();
-
-    }
 
     private void makeSelection(String selected, String name, String mobileNumber, int levelOfTraining, String reputation, Weapon selectedWeapon) {
         if (Objects.equals(selected, "Ritter")) {
@@ -303,19 +278,27 @@ public class Controller implements Initializable {
             memberList.setRitter(ritter, ritterID);
             String cc2 = "265E";
             String text2 = String.valueOf(Character.toChars(Integer.parseInt(cc2, 16)));
-            ritterID++;
             ritter.setWeapon(selectedWeapon);
             if (checkBox.isSelected()) {
-                addKnappeToRitter(ritter);
-                listViewRitterWithKnappe.getItems().add("Ritter" + ritter.toString() + "\n\nKnappe with Ritter" + ritter.getKnappeToString());
+                if (ritter.getKnappe() != null) {
+                    addKnappeToRitter(ritter);
+                    listViewRitterWithKnappe.getItems().add("Ritter" + ritter.toString() + "\n\nKnappe with Ritter" + ritter.getKnappeToString());
+                    clearTextFields();
+                } else {
+                    new WrongInputsAlert("Kein Knappe", "Der eingegebene Knappe existiert nicht");
+                    return;
+                }
             } else {
                 listViewRitter.getItems().add(selected + " " + text2 + ritter);
+                clearTextFields();
             }
+            ritterID++;
         } else if (Objects.equals(selected, "Knappe")) {
             Knappe knappe = new Knappe(name, mobileNumber, levelOfTraining, knappeID);
             listViewKnappe.getItems().add(selected + knappe);
             memberList.setKnappe(knappe, knappeID);
             knappeID++;
+            clearTextFields();
         }
     }
 }
