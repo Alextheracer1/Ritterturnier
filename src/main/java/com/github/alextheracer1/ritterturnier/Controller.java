@@ -166,11 +166,11 @@ public class Controller implements Initializable {
             mobileNumberTextField.setDisable(false);
             if (Objects.equals(memberList.get(new_value.intValue()), "Ritter")) {
                 weaponLabel.setOpacity(1);
-               // weaponSubCategoryLabel.setOpacity(1);
+                // weaponSubCategoryLabel.setOpacity(1);
                 weaponChoiceBox.setDisable(false);
                 weaponChoiceBox.setOpacity(1);
-               // weaponSubCategoryChoiceBox.setDisable(false);
-               // weaponSubCategoryChoiceBox.setOpacity(1);
+                // weaponSubCategoryChoiceBox.setDisable(false);
+                // weaponSubCategoryChoiceBox.setOpacity(1);
                 mobileNumberTextField.setOpacity(1);
                 reputationTextField.setDisable(false);
                 levelOfTrainingTextField.setDisable(true);
@@ -179,8 +179,8 @@ public class Controller implements Initializable {
                 checkBox.setOpacity(1);
                 checkBox.setDisable(false);
             } else if (Objects.equals(memberList.get(new_value.intValue()), "Knappe")) {
-               // weaponSubCategoryChoiceBox.setDisable(true);
-               // weaponSubCategoryChoiceBox.setOpacity(0);
+                // weaponSubCategoryChoiceBox.setDisable(true);
+                // weaponSubCategoryChoiceBox.setOpacity(0);
                 weaponLabel.setOpacity(0);
                 weaponSubCategoryLabel.setOpacity(0);
                 weaponChoiceBox.setDisable(true);
@@ -266,33 +266,36 @@ public class Controller implements Initializable {
                 return;
             }
         }
-            makeSelection(selected, name, mobileNumber, levelOfTraining, reputation, weapon);
+        makeSelection(selected, name, mobileNumber, levelOfTraining, reputation, weapon);
 
-        }
+    }
 
 
     private void makeSelection(String selected, String name, String mobileNumber, int levelOfTraining, String reputation, Weapon selectedWeapon) {
         if (Objects.equals(selected, "Ritter")) {
-            Ritter ritter = new Ritter(name, mobileNumber, reputation, ritterID);
-            // ritter.setWeapon(Schwerter.valueOf(String))
-            memberList.setRitter(ritter, ritterID);
             String cc2 = "265E";
             String text2 = String.valueOf(Character.toChars(Integer.parseInt(cc2, 16)));
-            ritter.setWeapon(selectedWeapon);
             if (checkBox.isSelected()) {
-                if (ritter.getKnappe() != null) {
+                try {
+                    Ritter ritter = new Ritter(name, mobileNumber, reputation, ritterID);
+                    memberList.setRitter(ritter, ritterID);
+                    ritter.setWeapon(selectedWeapon);
                     addKnappeToRitter(ritter);
                     listViewRitterWithKnappe.getItems().add("Ritter" + ritter.toString() + "\n\nKnappe with Ritter" + ritter.getKnappeToString());
                     clearTextFields();
-                } else {
+                    ritterID++;
+                } catch (NullPointerException ignored) {
                     new WrongInputsAlert("Kein Knappe", "Der eingegebene Knappe existiert nicht");
-                    return;
                 }
             } else {
+                Ritter ritter = new Ritter(name, mobileNumber, reputation, ritterID);
+                memberList.setRitter(ritter, ritterID);
+                ritter.setWeapon(selectedWeapon);
                 listViewRitter.getItems().add(selected + " " + text2 + ritter);
                 clearTextFields();
+                ritterID++;
             }
-            ritterID++;
+
         } else if (Objects.equals(selected, "Knappe")) {
             Knappe knappe = new Knappe(name, mobileNumber, levelOfTraining, knappeID);
             listViewKnappe.getItems().add(selected + knappe);

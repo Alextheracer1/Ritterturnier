@@ -11,34 +11,34 @@ public class Ritter {
     private Knappe knappe;
     private Weapon weapon;
 
-     public Ritter(String name, String mobileNumber, String reputationName, int id) {
+    public Ritter(String name, String mobileNumber, String reputationName, int id) {
         this.name = name;
         this.mobileNumber = mobileNumber;
         this.reputationName = reputationName;
         this.id = id;
     }
 
-    public void setKnappe(Knappe knappe){
+    public void setKnappe(Knappe knappe) {
         this.knappe = knappe;
     }
 
-    public Knappe getKnappe(){
-         return knappe;
+    public Knappe getKnappe() {
+        return knappe;
     }
 
-    public String getKnappeName(){
-         return knappe.getName();
+    public String getKnappeName() {
+        return knappe.getName();
     }
 
-    public String getKnappeToString(){
-         return knappe.toString();
+    public String getKnappeToString() {
+        return knappe.toString();
     }
 
-    public void setWeapon(Weapon weapon){
+    public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
 
-    public String toString(){
+    public String toString() {
         String string = "\nID: " + id + "\nName: " + name + "\nTelefonnummer: " + mobileNumber + "\nRufname: " + reputationName + "\nWaffe: " + weapon.getCategory();
         return string;
     }
@@ -46,4 +46,13 @@ public class Ritter {
     public String getName() {
         return name;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getWeaponCategory() {
+       return weapon.getCategory();
+    }
+
 }
