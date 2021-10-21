@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -266,6 +267,21 @@ public class Controller implements Initializable {
                 return;
             }
         }
+        if (Objects.equals(selected, "Ritter")){
+            try{
+                for (int i = 1; i <= memberList.getHashSizeRitter(); i++) {
+                    if (Objects.equals(memberList.getRitter(i).getName().toLowerCase(Locale.ROOT), name.toLowerCase(Locale.ROOT))) {
+                        if (Objects.equals((memberList.getRitter(i).getReputationName().toLowerCase(Locale.ROOT)), reputation.toLowerCase(Locale.ROOT))){
+                            throw new DoubleNameAndReputationException("Double Name and Reputation");
+                        }
+                    }
+                }
+            } catch (DoubleNameAndReputationException ignored){
+                new WrongInputsAlert("Eingabe Fehler", "Es wurde bereits ein Ritter mit dem Namen: " + name + " und mit dem Rufnamen: " + reputation + " hinzugefügt");
+                return;
+            }
+        }
+
         makeSelection(selected, name, mobileNumber, levelOfTraining, reputation, weapon);
 
     }

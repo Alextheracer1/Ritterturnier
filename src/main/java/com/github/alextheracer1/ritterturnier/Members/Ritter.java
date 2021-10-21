@@ -18,6 +18,10 @@ public class Ritter {
         this.id = id;
     }
 
+    public String getReputationName(){
+        return reputationName;
+    }
+
     public void setKnappe(Knappe knappe) {
         this.knappe = knappe;
     }

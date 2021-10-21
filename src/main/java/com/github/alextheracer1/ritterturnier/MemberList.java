@@ -23,6 +23,10 @@ public class MemberList {
         return hashMapRitter.get(id);
     }
 
+    public int getHashSizeRitter() {
+        return hashMapRitter.size();
+    }
+
     public Knappe getKnappe(int id) {
         return hashMapKnappe.get(id);
     }

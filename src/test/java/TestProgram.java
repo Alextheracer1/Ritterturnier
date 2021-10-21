@@ -5,11 +5,10 @@ import com.github.alextheracer1.ritterturnier.Weapons.Lanze;
 import com.github.alextheracer1.ritterturnier.Weapons.Schwert;
 import com.github.alextheracer1.ritterturnier.Weapons.Weapon;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RitterTest {
+public class TestProgram {
 
     Ritter ritter;
     Knappe knappe;
@@ -28,13 +27,13 @@ public class RitterTest {
         lanze = new Lanze("Lanze");
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void testRitter() {
         assertEquals("Sepp", ritter.getName(), "Name sollte der Name von dem Ritter Sepp sein");
         assertEquals(1, ritter.getId(), "Id sollte 1 sein, da nur 1 Ritter zurzeit erstellt ist");
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void setWeapon() {
         ritter.setWeapon(schwert);
         assertEquals("Schwert", ritter.getWeaponCategory());
@@ -45,12 +44,12 @@ public class RitterTest {
 
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void testKnappe() {
         assertEquals("Knappe", knappe.getName(), "Name von Knappe sollte Knappe sein");
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void addKnappeToRitter() {
         ritter.setKnappe(knappe);
         assertEquals("Knappe", ritter.getKnappeName());
